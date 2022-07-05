@@ -1,4 +1,4 @@
-FLAGS = -g -c --std=c++17
+FLAGS = -g -c --std=c++17 -fPIC
 
 all:
 	mkdir -p obj
@@ -16,7 +16,7 @@ test:
 	g++ $(FLAGS) src/producto.cpp -o obj/producto.o
 	g++ $(FLAGS) tests/tienda_tests.cpp -o obj/tienda_tests.o
 	g++ $(FLAGS) tests/producto_tests.cpp -o obj/producto_tests.o
-	g++ -g -o bin/tests obj/tienda.o obj/tienda_tests.o -lgtest -lgtest_main -lpthread 
+	g++ -g -o bin/tests obj/tienda.o obj/tienda_tests.o obj/producto.o obj/producto_tests.o -lgtest -lgtest_main -lpthread 
 
 clean:
 	rm -Rf bin
