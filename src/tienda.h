@@ -10,10 +10,10 @@ using namespace std;
 
 class Tienda {
 
-    char nombre[15];
-    char direccionInternet[24];
-    char direccionFisica[24];
-    char telefono[8];
+    char nombre[16];
+    char direccionInternet[25];
+    char direccionFisica[25];
+    char telefono[9];
     vector<Producto *> productos;
 
     public:

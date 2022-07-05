@@ -8,7 +8,7 @@ using namespace std;
 class Producto {
 
     int id;
-    char nombre[20];
+    char nombre[21];
     int existencias;
 
     public:

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include "excepcionDatoEnBlanco.h"
 
 Tienda::Tienda()
 {
@@ -14,9 +15,32 @@ Tienda::Tienda()
 Tienda::Tienda(string nombre, string direccionInternet, string direccionFisica, string telefono)
 {
     strcpy(this->nombre, nombre.c_str());
+
+    if(this->nombre == "")
+    {
+        throw ExcepcionDatoEnBlanco();
+    }
+
     strcpy(this->direccionInternet, direccionInternet.c_str());
+
+    if(this->direccionInternet == "")
+    {
+        throw ExcepcionDatoEnBlanco();
+    }
+
     strcpy(this->direccionFisica, direccionFisica.c_str());
+
+    if(this->direccionFisica == "")
+    {
+        throw ExcepcionDatoEnBlanco();
+    }
+    
     strcpy(this->telefono, telefono.c_str());
+
+    if(this->telefono == "")
+    {
+        throw ExcepcionDatoEnBlanco();
+    }
 }
 
 Tienda::~Tienda()

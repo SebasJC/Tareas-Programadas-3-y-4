@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include "./../src/excepcionDatoEnBlanco.h"
 
 #include "./../src/tienda.h"
 
@@ -14,9 +15,9 @@ namespace
         /// AAA
 
         // Arrange - configurar el escenario
-        Tienda *tiendaEsperada = new Tienda("Atlas", "atlas.com", "Desamparados, San José", "23452345");
+        Tienda *tiendaEsperada = new Tienda("Atlas", "www.atlas.co.cr", "Desamparados, San José", "23452345");
 
-        Producto *producto1 = new Producto(1, "Detergente", 12);
+        Producto *producto1 = new Producto(1, "Detergente Clorox", 12);
         tiendaEsperada->AgregarProducto(producto1);
 
         // Act - ejecute la operación
@@ -56,7 +57,7 @@ namespace
         delete tiendaLeida;
         delete tiendaEsperada;
 
-        string esperado = "Tienda: \nAtlas \natlas.com \nDesamparados, San José \n23452345 \nProductos: \n1 \nDetergente \n12"; 
+        string esperado = "Tienda: \nAtlas            \nwww.atlas.co.cr           \nDesamparados, San José    \n23452345 \nProductos: \n1   \nDetergente Clorox    \n12  "; 
         string salidaTiendaEsperada = streamSalidaTiendaEsperada.str();
 
         // Primero, validar la salida de la planilla esperada sea correcta
@@ -64,5 +65,73 @@ namespace
 
         string salidaTiendaLeidaDeArchivo = streamSalidaTiendaEsperada.str();
         EXPECT_EQ(esperado, salidaTiendaLeidaDeArchivo);
+    }
+
+    TEST(Tienda_Test, Test_Nombre_En_Blanco)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+        Tienda *tienda = new Tienda("", "www.Atlas.com", "San José", "23432323");
+
+        // Act - ejecute la operación
+        EXPECT_THROW({
+            Tienda * actual = tienda;
+        }, ExcepcionDatoEnBlanco);
+
+        delete tienda;
+
+        // Assert - valide los resultados
+    }
+
+    TEST(Tienda_Test, Test_Direccion_Web_En_Blanco)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+        Tienda *tienda = new Tienda("Atlas", "", "San José", "23432323");
+
+        // Act - ejecute la operación
+        EXPECT_THROW({
+            Tienda * actual = tienda;
+        }, ExcepcionDatoEnBlanco);
+
+        delete tienda;
+
+        // Assert - valide los resultados
+    }
+
+    TEST(Tienda_Test, Test_Direccion_Fisica_En_Blanco)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+        Tienda *tienda = new Tienda("Atlas", "www.Atlas.com", "", "23432323");
+
+        // Act - ejecute la operación
+        EXPECT_THROW({
+            Tienda * actual = tienda;
+        }, ExcepcionDatoEnBlanco);
+
+        delete tienda;
+
+        // Assert - valide los resultados
+    }
+
+    TEST(Tienda_Test, Test_Telefono_En_Blanco)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+        Tienda *tienda = new Tienda("Atlas", "www.Atlas.com", "San José", "");
+
+        // Act - ejecute la operación
+        EXPECT_THROW({
+            Tienda * actual = tienda;
+        }, ExcepcionDatoEnBlanco);
+
+        delete tienda;
+
+        // Assert - valide los resultados
     }
 }

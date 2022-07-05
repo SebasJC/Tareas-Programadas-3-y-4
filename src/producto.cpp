@@ -1,12 +1,31 @@
 #include "producto.h"
 #include <iostream>
 #include <cstring>
+#include "excepcionDatoEnBlanco.h"
+#include "excepcionNumeroNegativo.h"
 
 Producto::Producto(int id, string nombre, int existencias)
 {
     this->id = id;
+
+    if(0 > this->id)
+    {
+        throw ExcepcionNumeroNegativo();
+    }
+
     strcpy(this->nombre, nombre.c_str());
+
+    if(this->nombre == "")
+    {
+        throw ExcepcionDatoEnBlanco();
+    }
+
     this->existencias = existencias;
+
+    if(0 > this->existencias)
+    {
+        throw ExcepcionNumeroNegativo();
+    }
 }
 
 Producto::Producto()
